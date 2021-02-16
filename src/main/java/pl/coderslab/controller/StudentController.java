@@ -1,8 +1,6 @@
 package pl.coderslab.controller;
 
-import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Grade;
 import pl.coderslab.model.Student;
@@ -10,10 +8,6 @@ import pl.coderslab.respository.GradeRepository;
 import pl.coderslab.respository.StudentRepository;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller

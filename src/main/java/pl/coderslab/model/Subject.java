@@ -1,7 +1,6 @@
 package pl.coderslab.model;
 
 import lombok.Data;
-import pl.coderslab.model.Student;
 import pl.coderslab.model.Teacher;
 
 import javax.persistence.*;
@@ -10,7 +9,6 @@ import java.util.Set;
 @Entity
 @Data
 public class Subject {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.coderslab</groupId>
-    <artifactId>onljees01sb</artifactId>
+    <artifactId>PlanGenerator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>onljees01sb</name>
+    <name>PlanGenerator</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>15</java.version>
