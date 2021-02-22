@@ -1,6 +1,7 @@
 package pl.coderslab.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 import pl.coderslab.model.Teacher;
 
 import javax.persistence.*;

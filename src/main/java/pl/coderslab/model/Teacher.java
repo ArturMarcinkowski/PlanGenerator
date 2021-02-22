@@ -15,5 +15,8 @@ public class Teacher {
     private String name;
     private String surname;
     @ManyToMany
+    @JoinTable(name = "teacher_subject")
     private Set<Subject> subject;
+
+
 }
