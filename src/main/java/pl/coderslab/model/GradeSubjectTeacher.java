@@ -10,6 +10,7 @@ public class GradeSubjectTeacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private int lessonsInWeek;
     @OneToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
@@ -19,4 +20,5 @@ public class GradeSubjectTeacher {
     @OneToOne
     @JoinColumn(name = "grade_id")
     private Grade grade;
+
 }

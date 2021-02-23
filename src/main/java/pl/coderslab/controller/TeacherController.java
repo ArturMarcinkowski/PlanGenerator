@@ -21,7 +21,6 @@ import java.util.*;
 public class TeacherController {
 
 
-
     public final TeacherRepository teacherRepository;
     public final SubjectRepository subjectRepository;
 
@@ -30,28 +29,11 @@ public class TeacherController {
         this.subjectRepository = subjectRepository;
     }
 
-//    @GetMapping("/add")
-//    public String teacherAdd(HttpServletRequest request) {
-//        return "teacher/add";
-//    }
-//
-//    @ResponseBody
-//    @PostMapping("/add")
-//    public String addTeacher(@RequestParam String name, @RequestParam String surname){
-//        Teacher teacher = new Teacher();
-//        teacher.setName(name);
-//        teacher.setSurname(surname);
-//        teacherRepository.save(teacher);
-//        return "added";
-//    }
-
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Model model) {
         model.addAttribute("teacher", new Teacher());
         return "teacher/form";
     }
-
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveProposition(@Valid Teacher teacher, BindingResult result) {
@@ -62,57 +44,31 @@ public class TeacherController {
         return "redirect:/teacher/list";
     }
 
-
-
-
-
-    @GetMapping("/list")
-    public String teacherList(HttpServletRequest request) {
-        List<Teacher> list = teacherRepository.findAll();
-        request.setAttribute("teachers", list);
+    @RequestMapping("/list")
+    public String getAll(Model model) {
+        model.addAttribute("teachers", teacherRepository.findAll());
         return "teacher/list";
     }
 
-    @GetMapping("/edit")
-    public String editTeacher(@RequestParam int id, HttpServletRequest request){
 
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-        if(teacher.isPresent()) {
-            request.setAttribute("teacher", teacher.get());
-            List<Subject> list = subjectRepository.findSubjectByTeacher(teacher.get());
-            request.setAttribute("subjects", list);
-            List<Subject> allSubjects = subjectRepository.findAll();
-            request.setAttribute("allSubjects", allSubjects);
-            return "teacher/edit";
-        }
-        else
-            return "teacher/list";
-    }
-
-
-    @ResponseBody
-    @PostMapping("/edit")
-    public String teacherEdit(@RequestParam String name, @RequestParam String surname, @RequestParam int id, @RequestParam(value="subjectsId[]") int[] subjectsId){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
         Optional<Teacher> optionalTeacher = teacherRepository.findById(id);
         if(optionalTeacher.isPresent()) {
             Teacher teacher = optionalTeacher.get();
-            teacher.setId(id);
-            teacher.setName(name);
-            teacher.setSurname(surname);
-//            List<Subject> subjects = new ArrayList<>();
-            Set<Subject> subjects = new HashSet<>();
-            for(int subjectId:subjectsId)
-                subjects.add(subjectRepository.findById(subjectId).get());
-//            Set<Subject> subjectSet = new HashSet<>();
-//            CollectionUtils.addAll(subjectSet, subjects);
-//            return subjectRepository.findById(1).get().getName();
-//            Set<Subject> targetSet = new HashSet<>(subjects);
-//            teacher.setSubject(subjects);
-            teacherRepository.save(teacher);
-            return "done";
+            model.addAttribute("teacher", teacher);
+            return "teacher/form";
         }
-        else
-            return "teacher not found";
+        return "teacher/list";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid Teacher teacher, BindingResult result) {
+        if (result.hasErrors()) {
+            return "teacher/form";
+        }
+        teacherRepository.save(teacher);
+        return "redirect:/teacher/list";
     }
 
     @ResponseBody
@@ -120,20 +76,6 @@ public class TeacherController {
     public String deleteTeacher(@RequestParam int id){
        teacherRepository.deleteById(id);
         return "deleted";
-
-    }
-
-    @GetMapping("/details")
-    public String detailsTeacher(@RequestParam int id,  HttpServletRequest request){
-        Optional<Teacher> optionalTeacher = teacherRepository.findById(id);
-        if(optionalTeacher.isPresent()){
-            Teacher teacher = optionalTeacher.get();
-            List<Subject> list = subjectRepository.findSubjectByTeacher(teacher);
-            request.setAttribute("subjects", list);
-            request.setAttribute("teacher", teacher);
-            return "teacher/details";
-        }
-        return "teacher/list";
 
     }
 

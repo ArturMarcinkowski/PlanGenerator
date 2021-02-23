@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     Subject findByName(String name);
-    List<Subject> findSubjectByTeacher(Teacher teacher);
+
 
 
 }

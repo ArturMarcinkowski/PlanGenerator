@@ -1,6 +1,8 @@
 package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Grade;
 import pl.coderslab.model.Student;
@@ -10,6 +12,7 @@ import pl.coderslab.respository.SubjectRepository;
 import pl.coderslab.respository.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,23 +27,20 @@ public class SubjectController {
         this.teacherRepository = teacherRepository;
     }
 
-    @GetMapping("/add")
-    public String subjectAdd() {
-        return "subject/add";
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showForm(Model model) {
+        model.addAttribute("subject", new Subject());
+        return "subject/form";
     }
 
-
-    @ResponseBody
-    @PostMapping("/add")
-    public String addSubject(@RequestParam String name){
-        Subject subject = new Subject();
-        subject.setName(name);
-
-
-
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String saveProposition(@Valid Subject subject, BindingResult result) {
+        if (result.hasErrors()) {
+            return "subject/form";
+        }
         subjectRepository.save(subject);
-        return "added";
-
+        return "redirect:/subject/list";
     }
 
     @GetMapping("/list")
@@ -50,51 +50,32 @@ public class SubjectController {
         return "subject/list";
     }
 
-    @GetMapping("/edit")
-    public String editSubject(@RequestParam int id, HttpServletRequest request){
-
-        Optional<Subject> subject = subjectRepository.findById(id);
-        if(subject.isPresent()) {
-            request.setAttribute("subject", subject.get());
-            return "subject/edit";
-        }
-        else
-            return "subject/list";
-    }
-
-    @ResponseBody
-    @PostMapping("/edit")
-    public String subjectEdit(@RequestParam String name, @RequestParam int id){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
         Optional<Subject> optionalSubject = subjectRepository.findById(id);
         if(optionalSubject.isPresent()) {
             Subject subject = optionalSubject.get();
-            subject.setName(name);
-            subjectRepository.save(subject);
-            return "updated";
+            model.addAttribute("subject", subject);
+            return "subject/form";
         }
-        else
-            return "subject not found";
+        return "subject/list";
+    }
+
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid Subject subject, BindingResult result) {
+        if (result.hasErrors()) {
+            return "subject/form";
+        }
+        subjectRepository.save(subject);
+        return "redirect:/subject/list";
     }
 
     @ResponseBody
     @GetMapping("/delete")
     public String deleteSubject(@RequestParam int id){
         subjectRepository.deleteById(id);
-        return "deleted";
-
-    }
-
-    @GetMapping("/details")
-    public String detailsSubject(@RequestParam int id,  HttpServletRequest request){
-        Optional<Subject> optionalSubject = subjectRepository.findById(id);
-        if(optionalSubject.isPresent()){
-            Subject subject = optionalSubject.get();
-            List<Teacher> list = teacherRepository.findTeachersBySubject(subject);
-            request.setAttribute("subject", subject);
-            request.setAttribute("teachers", list);
-            return "subject/details";
-        }
-        return "subject/list";
+        return "redirect:/subject/list";
 
     }
 

@@ -10,11 +10,13 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String startTime;
-    private int duration;
-    private String day;
+    private String dayOfWeek;
+    private String startHour;
     @ManyToOne
     @JoinColumn(name="GST_id")
-    private GradeSubjectTeacher GST;
+    private GradeSubjectTeacher gst;
+
+
+
 
 }

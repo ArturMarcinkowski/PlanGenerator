@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="teacher">
+<form:form method="post" modelAttribute="subject">
     <div>
         <form:hidden path="id"/>
         <form:input path="name"/>
@@ -18,12 +18,7 @@
     <div>
         <form:errors path="name"/>
     </div>
-    <div>
-        <form:input path="surname"/>
-    </div>
-    <div>
-        <form:errors path="surname"/>
-    </div>
+
 <%--    <div>--%>
 <%--          <form:checkboxes path="subject" items="${subject}"/>--%>
 <%--    </div>--%>

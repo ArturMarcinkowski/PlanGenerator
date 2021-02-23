@@ -1,6 +1,8 @@
 package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Grade;
 import pl.coderslab.model.GradeSubjectTeacher;
@@ -9,8 +11,10 @@ import pl.coderslab.model.Teacher;
 import pl.coderslab.respository.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -28,50 +32,61 @@ public class GSTController {
         this.gstRepository = gstRepository;
     }
 
+
     @GetMapping("/add")
-    public String gstAdd(HttpServletRequest request){
-        List<Teacher> teachers = teacherRepository.findAll();
-        List<Grade> grades = gradeRepository.findAll();
-        List<Subject> subjects = subjectRepository.findAll();
-        request.setAttribute("grades", grades);
-        request.setAttribute("subjects", subjects);
-        return "gst/add";
+    public String gstAdd(Model model){
+        model.addAttribute("gst", new GradeSubjectTeacher());
+        model.addAttribute("grades", gradeRepository.findAll());
+        model.addAttribute("subjects", subjectRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        return "gst/form";
     }
 
-
-    @PostMapping("/add")
-
-    public String addGST(HttpServletRequest request, @RequestParam int gradeId, @RequestParam(value="subjectsId[]") int[] subjectsId) {
-        List<Subject> subjects = new ArrayList<>();
-        for(int subjectId:subjectsId)
-            subjects.add(subjectRepository.findById(subjectId).get());
-        request.setAttribute("gradeId", gradeId);
-        request.setAttribute("subjects", subjects);
-
-//        List<List<Teacher>> teacherBundle = new ArrayList<>();
-//        for(Subject subject:subjects){
-//            List<Teacher> teachers = new ArrayList<>(subject.getTeacher());
-//            teacherBundle.add(teachers);
-//        }
-//        request.setAttribute("teachersBundle", teacherBundle);
-
-        return "gst/addTeachers";
-    }
-
-
-    @PostMapping("/addteachers")
-    public String addTeachersToGST(@RequestParam int gradeId,@RequestParam List<Subject> subjects, @RequestParam(value="teachersId[]") int[] teachersId) {
-
-        int index = 0;
-        for(Subject subject:subjects){
-            GradeSubjectTeacher gradeSubjectTeacher = new GradeSubjectTeacher();
-            gradeSubjectTeacher.setGrade(gradeRepository.findById(gradeId));
-            gradeSubjectTeacher.setSubject(subject);
-            gradeSubjectTeacher.setTeacher(teacherRepository.findById(teachersId[index]).get());
-            gstRepository.save(gradeSubjectTeacher);
-            index++;
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String saveProposition(@Valid GradeSubjectTeacher gst, BindingResult result) {
+        if (result.hasErrors()) {
+            return "gst/form";
         }
-        return "added";
+        gstRepository.save(gst);
+        return "redirect:/gst/list";
     }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
+        Optional<GradeSubjectTeacher> optionalGST = gstRepository.findById(id);
+        if(optionalGST.isPresent()) {
+            GradeSubjectTeacher gst = optionalGST.get();
+            model.addAttribute("gst", gst);
+            model.addAttribute("grades", gradeRepository.findAll());
+            model.addAttribute("subjects", subjectRepository.findAll());
+            model.addAttribute("teachers", teacherRepository.findAll());
+            return "gst/form";
+        }
+        return "gst/list";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid GradeSubjectTeacher gst, BindingResult result) {
+        if (result.hasErrors()) {
+            return "gst/form";
+        }
+        gstRepository.save(gst);
+        return "redirect:/gst/list";
+    }
+
+
+    @RequestMapping("/list")
+    public String getAll(Model model) {
+        model.addAttribute("gsts", gstRepository.findAll());
+        return "gst/list";
+    }
+
+    @GetMapping("/delete")
+    public String deleteGST(@RequestParam int id){
+        gstRepository.deleteById(id);
+        return "redirect:/gst/list";
+
+    }
+
 
 }

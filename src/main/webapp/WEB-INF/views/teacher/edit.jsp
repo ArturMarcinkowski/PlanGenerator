@@ -14,6 +14,8 @@
     <label for="name">name:</label><br>
     <input type="text" id="surname" name="surname" value=${teacher.surname}><br>
 <%--    <select multiple="multiple" name="subjectsId[]">--%>
+
+
     Subjects:<br>
     <c:forEach var="subject" items="${allSubjects}">
         <input type="checkbox" name="subjectsId[]" value="${subject.id}">${subject.name}<br/>

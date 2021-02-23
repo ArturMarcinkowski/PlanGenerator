@@ -1,13 +1,17 @@
 package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Grade;
 import pl.coderslab.model.Student;
+import pl.coderslab.model.Teacher;
 import pl.coderslab.respository.GradeRepository;
 import pl.coderslab.respository.StudentRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,71 +26,55 @@ public class StudentController {
         this.gradeRepository = gradeRepository;
     }
 
-    @GetMapping("/add")
-    public String studentAdd(HttpServletRequest request) {
-        List<Grade> list = gradeRepository.findAll();
-        request.setAttribute("grades", list);
-        return "student/add";
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showForm(Model model) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("grades", gradeRepository.findAll());
+        return "student/form";
     }
 
-    @ResponseBody
     @PostMapping("/add")
-    public String addStudent(@RequestParam String name, @RequestParam String surname, @RequestParam int gradeId){
-        Student student = new Student();
-        student.setName(name);
-        student.setSurname(surname);
-        student.setGrade(gradeRepository.findById(gradeId));
+    public String addStudent(@Valid Student student, BindingResult result){
+        if (result.hasErrors()) {
+            return "student/form";
+        }
         studentRepository.save(student);
-        return "added";
+        return "redirect:/student/list";
 
     }
 
     @GetMapping("/list")
-    public String studentList(HttpServletRequest request) {
-        List<Student> list = studentRepository.findAll();
-        request.setAttribute("students", list);
+    public String studentList(Model model) {
+        model.addAttribute("students", studentRepository.findAll());
         return "student/list";
     }
 
-    @ResponseBody
+
     @GetMapping("/delete")
     public String deleteStudent(@RequestParam int id){
         studentRepository.deleteById(id);
-        return "deleted";
+        return "redirect:/student/list";
 
     }
 
 
-    @GetMapping("/edit")
-    public String editStudent(@RequestParam int id, HttpServletRequest request){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
+        model.addAttribute("student", studentRepository.findById(id));
+        model.addAttribute("grades", gradeRepository.findAll());
+        return "student/form";
+    }
 
-        Optional<Student> student = studentRepository.findById(id);
-        List<Grade> list = gradeRepository.findAll();
-        request.setAttribute("grades", list);
-        if(student.isPresent()) {
-            request.setAttribute("student", student.get());
-            return "student/edit";
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid Student student, BindingResult result) {
+        if (result.hasErrors()) {
+            return "student/form";
         }
-        else
-            return "student/list";
+        studentRepository.save(student);
+        return "redirect:/student/list";
     }
 
-
-    @ResponseBody
-    @PostMapping("/edit")
-    public String studentEdit(@RequestParam String name, @RequestParam String surname, @RequestParam int gradeId, @RequestParam int studentId){
-        Optional <Student> optionalStudent = studentRepository.findById(studentId);
-        if(optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            student.setName(name);
-            student.setSurname(surname);
-            student.setGrade(gradeRepository.findById(gradeId));
-            studentRepository.save(student);
-            return "updated";
-        }
-        else
-            return "student not found";
-    }
 
 
 }

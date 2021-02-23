@@ -22,7 +22,6 @@
             <td>${subject.id}</td>
             <td>${subject.name}</td>
             <td>
-                <a href="/subject/details?id=${subject.id}">Szczegóły</a>
                 <a href="/subject/edit?id=${subject.id}">Edytuj</a>
                 <a href="/subject/delete?id=${subject.id}">Usuń</a>
             </td>

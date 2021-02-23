@@ -24,7 +24,6 @@
             <td>${teacher.name}</td>
             <td>${teacher.surname}</td>
             <td>
-                <a href="/teacher/details?id=${teacher.id}">Szczegóły</a>
                 <a href="/teacher/edit?id=${teacher.id}">Edytuj</a>
                 <a href="/teacher/delete?id=${teacher.id}">Usuń</a>
             </td>

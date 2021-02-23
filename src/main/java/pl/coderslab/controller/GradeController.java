@@ -1,6 +1,8 @@
 package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Grade;
 import pl.coderslab.model.Student;
@@ -10,6 +12,7 @@ import pl.coderslab.respository.GradeRepository;
 import pl.coderslab.respository.StudentRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -26,67 +29,54 @@ public class GradeController {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping("/add")
-    public String gradeAdd(){
-        return "grade/add";
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showForm(Model model) {
+        model.addAttribute("grade", new Grade());
+        return "grade/form";
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    public String addGrade(@RequestParam String name) {
-        Grade grade = new Grade();
-        grade.setName(name);
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String saveProposition(@Valid Grade grade, BindingResult result) {
+        if (result.hasErrors()) {
+            return "grade/form";
+        }
         gradeRepository.save(grade);
-        return "added";
+        return "redirect:/grade/list";
     }
 
-    @GetMapping("/list")
-    public String gradeList(HttpServletRequest request) {
-        List<Grade> list = gradeRepository.findAll();
-        request.setAttribute("grades", list);
+    @RequestMapping("/list")
+    public String getAll(Model model) {
+        model.addAttribute("grades", gradeRepository.findAll());
         return "grade/list";
     }
 
-    @ResponseBody
-    @GetMapping("/delete")
-    public String deleteGrade(@RequestParam int id){
+    @RequestMapping("/delete")
+    public String delete(@RequestParam int id) {
         gradeRepository.deleteById(id);
-        return "deleted";
-
+        return "redirect:/grade/list";
     }
 
-    @GetMapping("/edit")
-    public String editGrade(@RequestParam int id, HttpServletRequest request){
-
-        Grade grade = gradeRepository.findById(id);
-        List<Student> list = studentRepository.findAll();
-        request.setAttribute("students", list);
-        request.setAttribute("grade", grade);
-        return "grade/edit";
-
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
+        model.addAttribute("grade", gradeRepository.findById(id));
+        return "grade/form";
     }
 
-
-    @ResponseBody
-    @PostMapping("/edit")
-    public String gradeEdit(@RequestParam String name, @RequestParam int gradeId, @RequestParam(value="studentsId[]") int[] studentsId){
-        Grade grade = gradeRepository.findById(gradeId);
-        grade.setName(name);
-        gradeRepository.save(grade);
-        for(int studentId:studentsId){
-            Student student = studentRepository.findById(studentId).get();
-            student.setGrade(grade);
-            studentRepository.save(student);
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid Grade grade, BindingResult result) {
+        if (result.hasErrors()) {
+            return "grade/form";
         }
-        return "updated";
+        gradeRepository.save(grade);
+        return "redirect:/grade/list";
     }
 
     @GetMapping("/details")
-    public String gradeDetails(@RequestParam int id,  HttpServletRequest request){
+    public String gradeDetails(@RequestParam int id, Model model){
         Grade grade = gradeRepository.findById(id);
-        request.setAttribute("grade", grade);
-        List<Student> students = studentRepository.findAllByGrade(grade);
-        request.setAttribute("students", students);
+        model.addAttribute("grade", grade);
+        model.addAttribute("students", studentRepository.findAllByGrade(grade));
         return "grade/details";
 
     }

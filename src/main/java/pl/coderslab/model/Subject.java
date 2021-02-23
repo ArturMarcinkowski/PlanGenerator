@@ -14,8 +14,6 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany
-    @JoinTable(name = "teacher_subject")
-    private Set<Teacher> teacher;
+
 
 }

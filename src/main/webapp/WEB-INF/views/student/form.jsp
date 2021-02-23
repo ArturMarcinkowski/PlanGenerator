@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="teacher">
+<form:form method="post" modelAttribute="student">
     <div>
         <form:hidden path="id"/>
         <form:input path="name"/>
@@ -27,20 +27,9 @@
 <%--    <div>--%>
 <%--          <form:checkboxes path="subject" items="${subject}"/>--%>
 <%--    </div>--%>
-<%--    <form:select path="subject" items="${subjects}" itemLabel="name" itemValue="id" />--%>
+    <form:select path="grade" items="${grades}" itemLabel="name" itemValue="id" />
 
 
-<%--    Subjects:<br>--%>
-<%--    <c:forEach var="subject" items="${subjects}">--%>
-<%--        <input type="checkbox" name="subject[]" value="${subject}">${subject.name}<br/>--%>
-<%--    </c:forEach>--%>
-
-<%--    <%--%>
-<%--        List<Subject> subjects =(List<Subject>) request.getAttribute("subjects");--%>
-<%--        for(Subject subject:subjects) {--%>
-<%--            out.println(subject.getName());--%>
-<%--        }--%>
-<%--    %>--%>
 
 
 
