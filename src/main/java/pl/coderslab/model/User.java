@@ -19,6 +19,12 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @OneToOne
+    @JoinColumn(name="student_id")
+    private Student student;
+    @OneToOne
+    @JoinColumn(name="teacher_id")
+    private Teacher teacher;
 
 
 }

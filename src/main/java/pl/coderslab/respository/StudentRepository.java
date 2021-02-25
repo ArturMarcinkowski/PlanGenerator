@@ -11,6 +11,10 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student findByName(String name);
     List<Student> findAllByGrade(Grade grade);
+    List<Student> findAllByGradeId(int id);
+    List<Student> findAllByGradeIsNull();
+    List<Student> findAllByGradeIdIsNot(int id);
+    List<Student> findAllByGradeNotNullAndGradeIdIs(int id);
 
 
 }

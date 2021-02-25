@@ -10,14 +10,26 @@
 </head>
 <body>
 
-<form:form method="post" modelAttribute="grade">
+<form:form method="post" modelAttribute="student">
     <div>
         <form:hidden path="id"/>
-        <form:input path="name"/>
+        <form:input path="username"/>
     </div>
     <div>
         <form:errors path="name"/>
     </div>
+    <div>
+        <form:input path="surname"/>
+    </div>
+    <div>
+        <form:errors path="surname"/>
+    </div>
+    <form:select path="teacher" items="${teachers}" itemLabel="name" itemValue="id" />
+
+
+
+
+
     <input type="submit" value="Save">
 </form:form>
 

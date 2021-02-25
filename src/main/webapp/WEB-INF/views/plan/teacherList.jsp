@@ -6,12 +6,12 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">List</h1>
-        <a href="/subject/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Subject</a>
+        <a href="/teacher/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Teacher</a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Subjects</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Teachers</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,13 +31,13 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                    <c:forEach var="subject" items="${subjects}">
+                    <c:forEach var="teacher" items="${teachers}">
                         <tr>
-                            <td>${subject.id}</td>
-                            <td>${subject.name}</td>
+                            <td>${teacher.id}</td>
+                            <td>${teacher.name} ${teacher.surname}</td>
                             <td>
-                                <a href="/subject/edit?id=${subject.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>
-                                <a href="/subject/delete?id=${subject.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger">Delete</a>
+                                <a href="/plan/teacher?id=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-info">Show Plan</a>
+                                <a href="/teacher/details?id=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary">Show Teacher Details</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -50,5 +50,8 @@
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>
+
+
+
 
 

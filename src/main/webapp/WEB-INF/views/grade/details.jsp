@@ -11,18 +11,7 @@
 </head>
 <body>
 
-<table class="table">
-    Id: ${grade.id}<br>
-    Name: ${grade.name}<br>
 
-    Students:
-    <ul>
-    <c:forEach var="student" items="${students}">
-        <li>${student.name} ${student.surname}</li>
-    </c:forEach>
-    </ul>
-
-</table>
 
 </body>
 </html>

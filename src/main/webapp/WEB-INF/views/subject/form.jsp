@@ -4,45 +4,37 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@include file="../utilities/header.jsp"%>
 
-<form:form method="post" modelAttribute="subject">
-    <div>
-        <form:hidden path="id"/>
-        <form:input path="name"/>
-    </div>
-    <div>
-        <form:errors path="name"/>
+
+<div class="container-fluid">
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Subject</h1>
     </div>
 
-<%--    <div>--%>
-<%--          <form:checkboxes path="subject" items="${subject}"/>--%>
-<%--    </div>--%>
-<%--    <form:select path="subject" items="${subjects}" itemLabel="name" itemValue="id" />--%>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add Subject</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
 
+                <form:form method="post" modelAttribute="subject">
+                    <div>
+                        <form:hidden path="id"/>
+                        <form:input path="name" placeholder="name"/>
+                    </div>
+                    <div>
+                        <form:errors path="name"/>
+                    </div>
 
-<%--    Subjects:<br>--%>
-<%--    <c:forEach var="subject" items="${subjects}">--%>
-<%--        <input type="checkbox" name="subject[]" value="${subject}">${subject.name}<br/>--%>
-<%--    </c:forEach>--%>
+                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add Subject">
+                </form:form>
+            </div>
+        </div>
+    </div>
 
-<%--    <%--%>
-<%--        List<Subject> subjects =(List<Subject>) request.getAttribute("subjects");--%>
-<%--        for(Subject subject:subjects) {--%>
-<%--            out.println(subject.getName());--%>
-<%--        }--%>
-<%--    %>--%>
-
-
-
-    <input type="submit" value="Save">
-</form:form>
-
-
-
-</body>
-</html>
+</div>
+</div>
+<%@include file="../utilities/footer.jsp"%>

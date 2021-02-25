@@ -21,13 +21,12 @@
             <div class="table-responsive">
 
                 <form:form method="post" modelAttribute="schedule">
-                    <form:hidden path="id"/>
                     Select day:<br>
                     <form:select path="dayOfWeek" items="${dayOfWeek}" /><br>
                     Select hour:<br>
                     <form:select path="startHour" items="${startHour}" /><br>
-                    Select gst:
-                    <form:select path="gst" items="${gsts}" itemLabel="grade.name" itemValue="id" /><br>
+                    Select Subject:<br>
+                    <form:select path="gst" items="${gsts}" itemLabel="ClassSubject" itemValue="id" /><br>
                     <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="Set Lesson">
                 </form:form>
             </div>
@@ -37,6 +36,5 @@
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>
-
 
 

@@ -6,12 +6,12 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">List</h1>
-        <a href="/subject/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Subject</a>
+        <a href="/grades/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Subjects</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Classes</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,13 +31,14 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                    <c:forEach var="subject" items="${subjects}">
+                    <c:forEach var="grade" items="${grades}">
                         <tr>
-                            <td>${subject.id}</td>
-                            <td>${subject.name}</td>
+                            <td>${grade.id}</td>
+                            <td>${grade.name}</td>
                             <td>
-                                <a href="/subject/edit?id=${subject.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>
-                                <a href="/subject/delete?id=${subject.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger">Delete</a>
+                                <a href="/grade/${grade.id}/list" class="d-none d-sm-inline-block btn btn-sm btn-info">Details</a>
+                                <a href="/grades/edit?id=${grade.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>
+                                <a href="/grades/delete?id=${grade.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -50,5 +51,8 @@
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>
+
+
+
 
 

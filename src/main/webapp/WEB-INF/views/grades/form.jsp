@@ -10,35 +10,28 @@
 <div class="container-fluid">
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add Teacher</h1>
+        <h1 class="h3 mb-0 text-gray-800">Add Class</h1>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Teacher</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Add Class</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
 
-                <form:form method="post" modelAttribute="teacher">
+                <form:form method="post" modelAttribute="grade">
                     <div>
                         <form:hidden path="id"/>
-
                         <form:input path="name" placeholder="name"/>
                     </div>
                     <div>
                         <form:errors path="name"/>
                     </div>
-                    <div>
-                        <form:input path="surname" placeholder="surname"/>
-                    </div>
-                    <div>
-                        <form:errors path="surname"/>
-                    </div>
-                    Select username:<br>
-                    <form:select path="user" items="${users}" itemLabel="username" itemValue="id" /><br>
 
-                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add Teacher">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="Save">
+                    </div>
                 </form:form>
             </div>
         </div>
@@ -47,3 +40,4 @@
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>
+

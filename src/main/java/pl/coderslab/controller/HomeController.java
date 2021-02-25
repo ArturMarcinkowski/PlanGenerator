@@ -21,6 +21,11 @@ public class HomeController {
     @ResponseBody
     public String about() { return "Here you can find some details for logged users"; }
 
+    @RequestMapping("/index")
+    public String index(){
+        return "utilities/index2";
+    }
+
 
 
 }

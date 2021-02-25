@@ -5,10 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.model.Grade;
-import pl.coderslab.model.Student;
-import pl.coderslab.model.Subject;
-import pl.coderslab.model.Teacher;
+import pl.coderslab.model.*;
+import pl.coderslab.respository.GSTRepository;
 import pl.coderslab.respository.SubjectRepository;
 import pl.coderslab.respository.TeacherRepository;
 
@@ -23,10 +21,12 @@ public class TeacherController {
 
     public final TeacherRepository teacherRepository;
     public final SubjectRepository subjectRepository;
+    public final GSTRepository gstRepository;
 
-    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
+    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, GSTRepository gstRepository) {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
+        this.gstRepository = gstRepository;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -71,12 +71,30 @@ public class TeacherController {
         return "redirect:/teacher/list";
     }
 
-    @ResponseBody
     @GetMapping("/delete")
     public String deleteTeacher(@RequestParam int id){
        teacherRepository.deleteById(id);
-        return "deleted";
+        return "redirect:/teacher/list";
 
+    }
+
+    @GetMapping("/details")
+    public String details(Model model, @RequestParam int id) {
+        model.addAttribute("teacher", teacherRepository.findById(id).get());
+        List<GradeSubjectTeacher> gsts =  gstRepository.findAllByTeacherId(id);
+        List<Subject> subjects = new ArrayList<>();
+        List<Grade> grades = new ArrayList<>();
+        for(GradeSubjectTeacher gst:gsts){
+            if(!subjects.contains(gst.getSubject())){
+                subjects.add(gst.getSubject());
+            }
+            if(!grades.contains(gst.getGrade())){
+                grades.add(gst.getGrade());
+            }
+        }
+        model.addAttribute("grades", grades);
+        model.addAttribute("subjects", subjects);
+        return "teacher/details";
     }
 
 

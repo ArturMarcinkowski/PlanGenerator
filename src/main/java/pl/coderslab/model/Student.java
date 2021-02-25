@@ -16,5 +16,8 @@ public class Student {
     @ManyToOne
     @JoinColumn(name="grade_id")
     private Grade grade;
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
 }
