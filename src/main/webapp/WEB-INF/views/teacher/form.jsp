@@ -35,9 +35,11 @@
                     <div>
                         <form:errors path="surname"/>
                     </div>
-                    Select username:<br>
-                    <form:select path="user" items="${users}" itemLabel="username" itemValue="id" /><br>
-
+                    Select Account:<br>
+                    <form:select  path="user">
+                        <form:option value = "" label = "Select"/>
+                        <form:options items="${users}" itemLabel="username" itemValue="id"/>
+                    </form:select><br>
                     <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add Teacher">
                 </form:form>
             </div>

@@ -20,14 +20,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/grade")
-public class GradeController {
+@RequestMapping("/logged")
+public class LoggedUserController {
     public final GradeRepository gradeRepository;
     public final StudentRepository studentRepository;
     public final GSTRepository gstRepository;
 
 
-    public GradeController(GradeRepository gradeRepository, StudentRepository studentRepository, GSTRepository gstRepository) {
+    public LoggedUserController(GradeRepository gradeRepository, StudentRepository studentRepository, GSTRepository gstRepository) {
         this.gradeRepository = gradeRepository;
         this.studentRepository = studentRepository;
         this.gstRepository = gstRepository;

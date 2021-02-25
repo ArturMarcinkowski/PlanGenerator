@@ -20,22 +20,23 @@
         <div class="card-body">
             <div class="table-responsive">
 
-                <form:form method="post" modelAttribute="user">
+                <form method="post">
                     <div>
-                        <form:hidden path="id"/>
-                        <form:input path="username" placeholder="username"/>
-                    </div>
+                        <input type="hidden" value="${userId}" name="userId" id="userId"/>
                     <div>
-                        <form:errors path="username"/>
-                    </div>
-                    <div>
-                        <form:input path="password" placeholder="password"/>
-                    </div>
-                    <div>
-                        <form:errors path="password"/>
+
+<%--                    <select name="rolesId[]" id="rolesId[]">--%>
+<%--                        <option value="">--Please choose an option--</option>--%>
+<%--                        <option value="1">admin</option>--%>
+<%--                        <option value="2">student</option>--%>
+<%--                        <option value="3">teacher</option>--%>
+<%--                    </select>--%>
+                           <input type="checkbox" value="1" name="rolesId[]" id="rolesId[]"/>ADMIN<br>
+                          <input type="checkbox" value="2" name="rolesId[]" id="rolesId[]"/>TEACHER<br>
+                           <input type="checkbox" value="3" name="rolesId[]" id="rolesId[]"/>STUDENT<br>
                     </div>
                     <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add User">
-                </form:form>
+                </form>
 
 
 <%--    <c:forEach var="role" items="${roles}">--%>

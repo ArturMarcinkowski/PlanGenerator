@@ -22,8 +22,8 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Surname</th>
-                            <th>Grade</th>
-                            <th>Username</th>
+                            <th>Class</th>
+                            <th>Account</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -32,8 +32,8 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Surname</th>
-                            <th>Grade</th>
-                            <th>Username</th>
+                            <th>Class</th>
+                            <th>Account</th>
                             <th>Actions</th>
                         </tr>
                         </tfoot>
@@ -44,10 +44,10 @@
                                 <td>${student.name}</td>
                                 <td>${student.surname}</td>
                                 <td>${student.grade.name}</td>
-                                <td>${student.user.username}</td>
+                                <td>${student.user.username} (Id:${student.user.id})</td>
                                 <td>
                                     <a href="/student/edit?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>
-                                    <a href="/student/account?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-info">Set Account</a>
+<%--                                    <a href="/student/account?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-info">Set Account</a>--%>
                                     <a href="/student/delete?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>

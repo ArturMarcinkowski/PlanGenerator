@@ -141,10 +141,10 @@ public class GSTController {
 
 
     @GetMapping("/addtoteacher")
-    public String gstAddToTeacher(Model model, @RequestParam int id){
+    public String gstAddToTeacher(Model model, @RequestParam int teacherId){
         model.addAttribute("gst", new GradeSubjectTeacher());
         List<Teacher> teachers = new ArrayList<>();
-        teachers.add(teacherRepository.findById(id).get());
+        teachers.add(teacherRepository.findById(teacherId).get());
         model.addAttribute("grades", gradeRepository.findAll());
         model.addAttribute("subjects", subjectRepository.findAll());
         model.addAttribute("teachers", teachers);

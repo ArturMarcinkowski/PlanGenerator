@@ -11,7 +11,7 @@
         Class Id: ${grade.id}<br>
 
     <div class="row">
-    <div class="col-xl-8 col-lg-6">
+    <div class="col-xl-7 col-lg-6">
     <div class="card shadow mb-4">
         <div class="card-header">
             <div class="d-sm-flex align-items-center justify-content-between">
@@ -49,7 +49,7 @@
                             <td>${student.user.username}</td>
                             <td>
                                 <a href="/student/edit?id=${student.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>
-                                <a href="/student/account?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-info">Set Account</a>
+<%--                                <a href="/student/account?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-info">Set Account</a>--%>
                                 <a href="/student/delete?id=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-danger">Delete Student</a>
                                 <a href="/grade/${grade.id}/removeStudent?studentId=${student.id}"class="d-none d-sm-inline-block btn btn-sm btn-warning">Remove form Class</a>
                             </td>
@@ -64,7 +64,7 @@
 
 
 
-    <div class="col-xl-4 col-lg-3">
+    <div class="col-xl-5 col-lg-3">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-between">

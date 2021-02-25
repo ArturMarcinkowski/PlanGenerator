@@ -31,6 +31,8 @@ public class ScheduleController {
         this.teacherRepository = teacherRepository;
     }
 
+
+
     @ModelAttribute(name = "dayOfWeek")
     public List<String> getDays() {
         return List.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");

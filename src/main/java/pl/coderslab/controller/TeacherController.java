@@ -6,9 +6,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.*;
-import pl.coderslab.respository.GSTRepository;
-import pl.coderslab.respository.SubjectRepository;
-import pl.coderslab.respository.TeacherRepository;
+import pl.coderslab.respository.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -22,25 +20,58 @@ public class TeacherController {
     public final TeacherRepository teacherRepository;
     public final SubjectRepository subjectRepository;
     public final GSTRepository gstRepository;
+    public final UserRepository userRepository;
+    public final StudentRepository studentRepository;
 
-    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, GSTRepository gstRepository) {
+    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, GSTRepository gstRepository, UserRepository userRepository, StudentRepository studentRepository) {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
         this.gstRepository = gstRepository;
+        this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Model model) {
         model.addAttribute("teacher", new Teacher());
+        List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
+        model.addAttribute("users", users);
         return "teacher/form";
     }
+
+    public void saveTeacher(Teacher teacher){
+        teacherRepository.save(teacher);
+        if(teacher.getUser() != null){
+            List<User> users = userRepository.findAllByTeacher(teacher);
+            for(User user:users){
+                user.setTeacher(null);
+                List<Student> students = studentRepository.findAllByUserId(user.getId());
+                for(Student student: students){
+                    student.setUser(null);
+                    studentRepository.save(student);
+                }
+                teacherRepository.save(teacher);
+            }
+            User user = userRepository.findById(teacher.getUser().getId()).get();
+            user.setTeacher(teacher);
+            userRepository.save(user);
+        }
+        else {
+            List<User> users = userRepository.findAllByTeacherId(teacher.getId());
+            for(User user:users){
+                user.setTeacher(null);
+                userRepository.save(user);
+            }
+        }
+    }
+
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveProposition(@Valid Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
             return "teacher/form";
         }
-        teacherRepository.save(teacher);
+        saveTeacher(teacher);
         return "redirect:/teacher/list";
     }
 
@@ -57,6 +88,13 @@ public class TeacherController {
         if(optionalTeacher.isPresent()) {
             Teacher teacher = optionalTeacher.get();
             model.addAttribute("teacher", teacher);
+            List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
+//            Optional<User> currentUser = userRepository.findByTeacherId(id);
+//            if(currentUser.isPresent()){
+//                users.add(currentUser.get());
+//            }
+            users.addAll(userRepository.findAllByTeacherId(id));
+            model.addAttribute("users", users);
             return "teacher/form";
         }
         return "teacher/list";
@@ -67,7 +105,7 @@ public class TeacherController {
         if (result.hasErrors()) {
             return "teacher/form";
         }
-        teacherRepository.save(teacher);
+        saveTeacher(teacher);
         return "redirect:/teacher/list";
     }
 

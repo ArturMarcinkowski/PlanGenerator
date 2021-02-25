@@ -36,9 +36,15 @@
                         <form:errors path="surname"/>
                     </div>
                     Select Class:<br>
-                    <form:select path="grade" items="${grades}" itemLabel="name" itemValue="id" /><br>
+                    <form:select  path="grade">
+                        <form:option value = "" label = "Select"/>
+                        <form:options items="${grades}"  itemLabel="name" itemValue="id"/>
+                    </form:select><br>
                     Select Account:<br>
-                    <form:select path="user" items="${users}" itemLabel="username" itemValue="id" /><br>
+                    <form:select  path="user">
+                        <form:option value = "" label = "Select"/>
+                        <form:options items="${users}" itemLabel="username" itemValue="id"/>
+                    </form:select><br>
 
 
 

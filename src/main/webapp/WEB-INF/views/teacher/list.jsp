@@ -20,6 +20,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Surname</th>
+                        <th>Account</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -28,6 +29,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Surname</th>
+                        <th>Account</th>
                         <th>Actions</th>
                     </tr>
                     </tfoot>
@@ -37,6 +39,7 @@
                             <td>${teacher.id}</td>
                             <td>${teacher.name}</td>
                             <td>${teacher.surname}</td>
+                            <td>${teacher.user.username} (Id:${teacher.user.id})</td>
                             <td>
                                 <a href="/teacher/details?id=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-info">Details</a>
                                 <a href="/teacher/edit?id=${teacher.id}"class="d-none d-sm-inline-block btn btn-sm btn-primary">Edit</a>

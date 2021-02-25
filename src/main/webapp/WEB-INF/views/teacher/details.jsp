@@ -15,9 +15,11 @@
     <div class="row">
         <div class="col-xl-4 col-lg-3">
             <div class="card shadow mb-4">
-                <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">${teacher.name} ${teacher.surname}</h6>
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">${teacher.name} ${teacher.surname}</h6>
+                        <a href="/teacher/edit?id=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Edit Details</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     Informations:
@@ -30,10 +32,13 @@
             </div>
         </div>
 
-        <div class="col-xl-2 col-lg-1">
+        <div class="col-xl-3 col-lg-1">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects</h6>
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects</h6>
+                    <a href="/gst/addtoteacher?teacherId=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Subject</a>
+                </div>
             </div>
             <div class="card-body">
                 <ul>
@@ -45,10 +50,13 @@
         </div>
         </div>
 
-        <div class="col-xl-2 col-lg-1">
+        <div class="col-xl-3 col-lg-1">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Teaching Classes</h6>
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Teaching Classes</h6>
+                    <a href="/gst/addtoteacher?teacherId=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
+                </div>
             </div>
             <div class="card-body">
                     <ul>
