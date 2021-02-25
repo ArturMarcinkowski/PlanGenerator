@@ -4,6 +4,7 @@ package pl.coderslab.controller;
         import org.springframework.ui.Model;
         import org.springframework.validation.BindingResult;
         import org.springframework.web.bind.annotation.*;
+        import pl.coderslab.PlanUtils;
         import pl.coderslab.model.*;
         import pl.coderslab.respository.GSTRepository;
         import pl.coderslab.respository.GradeRepository;
@@ -40,43 +41,7 @@ public class PlanController {
         return List.of("8:00","8:55", "9:50", "10:45", "11:40", "12:35", "13:30", "14:25");
     }
 
-    private int hourToNumber(String hour) {
-        switch (hour) {
-            case "8:00":
-                return 0;
-            case "8:55":
-                return 1;
-            case "9:50":
-                return 2;
-            case "10:45":
-                return 3;
-            case "11:40":
-                return 4;
-            case "12:35":
-                return 5;
-            case "13:30":
-                return 6;
-            case "14:25":
-                return 7;
-        }
-        return 0;
-    }
 
-    private int dayToNumber(String day) {
-        switch (day) {
-            case "Monday":
-                return 0;
-            case "Tuesday":
-                return 1;
-            case "Wednesday":
-                return 2;
-            case "Thursday":
-                return 3;
-            case "Friday":
-                return 4;
-        }
-        return 0;
-    }
 
 
     @GetMapping("/gradeList")
@@ -107,23 +72,11 @@ public class PlanController {
 //    }
 
 
-    public GradeSubjectTeacher[][] getGsts(List<Schedule> schedules){
-        GradeSubjectTeacher[][] allGsts;
-        allGsts = new GradeSubjectTeacher[8][5];
-        for(Schedule schedule:schedules){
-            if(schedule.getDayOfWeek() != null && schedule.getStartHour() != null){
-                allGsts[hourToNumber(schedule.getStartHour())]
-                        [dayToNumber(schedule.getDayOfWeek())] = schedule.getGst();
-            }
-        }
-        return allGsts;
-    }
-
     @GetMapping("/grade")
     public String grade(Model model, @RequestParam int id){
         Grade grade = gradeRepository.findById(id);
         model.addAttribute("grade",grade);
-        GradeSubjectTeacher[][] allGsts = getGsts(scheduleRepository.findAllByGstGrade(grade));
+        GradeSubjectTeacher[][] allGsts = PlanUtils.getGsts(scheduleRepository.findAllByGstGrade(grade));
         model.addAttribute("allGsts", allGsts);
         return "plan/gradePlan";
     }
@@ -138,7 +91,7 @@ public class PlanController {
     public String teacher(Model model, @RequestParam int id){
         Teacher teacher = teacherRepository.findById(id).get();
         model.addAttribute("teacher", teacher);
-        GradeSubjectTeacher[][] allGsts = getGsts(scheduleRepository.findAllByGstTeacher(teacher));
+        GradeSubjectTeacher[][] allGsts = PlanUtils.getGsts(scheduleRepository.findAllByGstTeacher(teacher));
         model.addAttribute("allGsts", allGsts);
         return "plan/teacherPlan";
     }
