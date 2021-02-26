@@ -29,7 +29,6 @@ public class GradesController {
         this.studentRepository = studentRepository;
     }
 
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Model model) {
         model.addAttribute("grade", new Grade());

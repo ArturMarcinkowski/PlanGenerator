@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../utilities/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="../utilities/header.jsp" %>
 
 <div class="container-fluid">
 
@@ -9,6 +9,7 @@
         <a href="/grade/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
     </div>
 
+    <div class="col-xl-5 col-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Classes</h6>
@@ -36,9 +37,10 @@
                             <td>${grade.id}</td>
                             <td>${grade.name}</td>
                             <td>
-                                <a href="/plan/grade?id=${grade.id}"class="d-none d-sm-inline-block btn btn-sm btn-info">Show Plan</a>
-                                <a href="/grade/${grade.id}/list"class="d-none d-sm-inline-block btn btn-sm btn-primary">Show Class Details</a>
-
+                                <a href="/plan/grade?id=${grade.id}"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-info">Show Plan</a>
+                                <a href="/grade/${grade.id}/list"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-primary">Show Class Details</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -47,10 +49,11 @@
             </div>
         </div>
     </div>
+    </div>
 
 </div>
 </div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
 
 
 

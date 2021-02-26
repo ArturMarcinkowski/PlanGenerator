@@ -32,10 +32,6 @@ public class UserController {
         this.roleRepository = roleRepository;
     }
 
-//    @ModelAttribute(name = "roles")
-//    public List<String> getRoles() {
-//        return List.of("ROLE_ADMIN", "ROLE_TECHER", "ROLE_STUDENT");
-//    }
     @ModelAttribute(name = "roles")
     public List<Role> getRoles() {
         return List.of(new Role(1, "ROLE_ADMIN"), new Role(2, "ROLE_TEACHER"), new Role(3, "ROLE_STUDENT"));
@@ -54,11 +50,6 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Model model) {
         model.addAttribute("user", new User());
-//        model.addAttribute("grades", gradeRepository.findAll());
-//        List<User> users = userRepository.findAllByStudentIsNull();
-//        model.addAttribute("teachers", teacherRepository.findAllByUserIsNull());
-//        List<Role> roles = roleRepository.findAll();
-//        model.addAttribute("roles", roles);
         return "user/form";
     }
 
@@ -114,8 +105,7 @@ public class UserController {
     }
 
     @PostMapping("/addrole")
-    public String addRole(Model model, @RequestParam(name = "rolesId[]") int rolesId[], @RequestParam int userId){
-
+    public String addRole(@RequestParam(name = "rolesId[]") int rolesId[], @RequestParam int userId){
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isPresent()){
             Set<Role> roles = new HashSet<>();

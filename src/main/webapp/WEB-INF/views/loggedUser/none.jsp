@@ -14,7 +14,6 @@
     </div>
     <h4 class="h5 mb-0 text-gray-800">You currently have no role. Wait until admin set you a function</h4>
 
-
 </div>
 </div>
 </div>

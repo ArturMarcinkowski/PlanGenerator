@@ -9,13 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Plan Generator</title>
-
     <link href="../../../resources/admin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="../../../resources/admin2/css/sb-admin-2.min.css" rel="stylesheet">
-
-
 </head>
 
 <body id="page-top">

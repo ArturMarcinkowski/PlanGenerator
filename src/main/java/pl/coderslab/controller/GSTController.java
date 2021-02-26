@@ -32,32 +32,14 @@ public class GSTController {
         this.gstRepository = gstRepository;
     }
 
-
     @GetMapping("/add")
-    public String gstAdd(Model model){
+    public String gstAdd(Model model) {
         model.addAttribute("gst", new GradeSubjectTeacher());
         model.addAttribute("grades", gradeRepository.findAll());
         model.addAttribute("subjects", subjectRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         return "gst/form";
     }
-//
-//    @GetMapping("/add")
-//    public String gstAdd(Model model, @RequestParam Optional<Integer> gradeId){
-//        model.addAttribute("gst", new GradeSubjectTeacher());
-//        List<Grade> grades = new ArrayList<>();
-//        if(gradeId.isPresent()){
-//            grades.add(gradeRepository.findById(gradeId.get()).get());
-//            model.addAttribute("gradeId", gradeId.get());
-//        }
-//        else {
-//            grades = gradeRepository.findAll();
-//        }
-//        model.addAttribute("grades", grades);
-//        model.addAttribute("subjects", subjectRepository.findAll());
-//        model.addAttribute("teachers", teacherRepository.findAll());
-//        return "gst/form";
-//    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveProposition(@Valid GradeSubjectTeacher gst, BindingResult result) {
@@ -71,7 +53,7 @@ public class GSTController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String showEditForm(@RequestParam int id, Model model) {
         Optional<GradeSubjectTeacher> optionalGST = gstRepository.findById(id);
-        if(optionalGST.isPresent()) {
+        if (optionalGST.isPresent()) {
             GradeSubjectTeacher gst = optionalGST.get();
             model.addAttribute("gst", gst);
             model.addAttribute("grades", gradeRepository.findAll());
@@ -99,7 +81,7 @@ public class GSTController {
     }
 
     @GetMapping("/delete")
-    public String deleteGST(@RequestParam int id){
+    public String deleteGST(@RequestParam int id) {
         gstRepository.deleteById(id);
         return "redirect:/gst/list";
 
@@ -108,19 +90,19 @@ public class GSTController {
     @RequestMapping(value = "/change", method = RequestMethod.GET)
     public String change(@RequestParam int id, @RequestParam int value) {
         Optional<GradeSubjectTeacher> optionalGST = gstRepository.findById(id);
-        if(optionalGST.isPresent()) {
+        if (optionalGST.isPresent()) {
             GradeSubjectTeacher gst = optionalGST.get();
             int newLessonsInWeek = gst.getLessonsInWeek() + value;
-            if(newLessonsInWeek < 0) newLessonsInWeek = 0;
+            if (newLessonsInWeek < 0) newLessonsInWeek = 0;
             gst.setLessonsInWeek(newLessonsInWeek);
             gstRepository.save(gst);
-            return "redirect:/grade/"+gst.getGrade().getId()+"/list";
+            return "redirect:/grade/" + gst.getGrade().getId() + "/list";
         }
         return "gst/list";
     }
 
     @GetMapping("/addtograde")
-    public String gstAddToGrade(Model model, @RequestParam int gradeId){
+    public String gstAddToGrade(Model model, @RequestParam int gradeId) {
         model.addAttribute("gst", new GradeSubjectTeacher());
         List<Grade> grades = new ArrayList<>();
         grades.add(gradeRepository.findById(gradeId));
@@ -136,12 +118,11 @@ public class GSTController {
             return "gst/form";
         }
         gstRepository.save(gst);
-        return "redirect:/grade/"+gst.getGrade().getId()+"/list";
+        return "redirect:/grade/" + gst.getGrade().getId() + "/list";
     }
 
-
     @GetMapping("/addtoteacher")
-    public String gstAddToTeacher(Model model, @RequestParam int teacherId){
+    public String gstAddToTeacher(Model model, @RequestParam int teacherId) {
         model.addAttribute("gst", new GradeSubjectTeacher());
         List<Teacher> teachers = new ArrayList<>();
         teachers.add(teacherRepository.findById(teacherId).get());
@@ -157,7 +138,7 @@ public class GSTController {
             return "gst/form";
         }
         gstRepository.save(gst);
-        return "redirect:/teacher/details?id="+gst.getTeacher().getId();
+        return "redirect:/teacher/details?id=" + gst.getTeacher().getId();
     }
 
 }

@@ -32,7 +32,6 @@ public class ScheduleController {
     }
 
 
-
     @ModelAttribute(name = "dayOfWeek")
     public List<String> getDays() {
         return List.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
@@ -41,22 +40,6 @@ public class ScheduleController {
     public List<String> getHours() {
         return List.of("8:00","8:55", "9:50", "10:45", "11:40", "12:35", "13:30", "14:25");
     }
-
-//    @RequestMapping(value = "/add", method = RequestMethod.GET)
-//    public String showFormSchedule(Model model) {
-//        model.addAttribute("schedule", new Schedule());
-//        model.addAttribute("gsts", gstRepository.findAll());
-//        return "schedule/form";
-//    }
-//
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public String saveProposition(@Valid Schedule schedule, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "schedule/form";
-//        }
-//        scheduleRepository.save(schedule);
-//        return "redirect:/schedule/list";
-//    }
 
     @GetMapping("/list")
     public String list(Model model){
@@ -71,7 +54,6 @@ public class ScheduleController {
         return "schedule/form";
     }
 
-
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveEditForm(@Valid Schedule schedule, BindingResult result) {
         if (result.hasErrors()) {
@@ -80,8 +62,6 @@ public class ScheduleController {
         scheduleRepository.save(schedule);
         return "redirect:/schedule/list";
     }
-
-
 
     @RequestMapping(value = "/addplanforgrade", method = RequestMethod.GET)
     public String showFormSchedule(Model model, @RequestParam int gradeId) {

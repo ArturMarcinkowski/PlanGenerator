@@ -1,7 +1,6 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../utilities/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="../utilities/header.jsp" %>
 
 <div class="container-fluid">
 
@@ -62,7 +61,7 @@
 
 </div>
 </div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
 
 
 

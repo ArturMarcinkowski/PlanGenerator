@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 text-gray-800">List</h1>
         <a href="/grades/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
     </div>
-
+    <div class="col-xl-5 col-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Classes</h6>
@@ -46,6 +46,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 
 </div>

@@ -42,35 +42,11 @@ public class PlanController {
     }
 
 
-
-
     @GetMapping("/gradeList")
     public String gradeList(Model model){
         model.addAttribute("grades",gradeRepository.findAll());
         return "plan/gradeList";
     }
-
-//    @GetMapping("/grade")
-//    public String grade(Model model, @RequestParam int id){
-//        Grade grade = gradeRepository.findById(id);
-//        model.addAttribute("grade",grade);
-//        GradeSubjectTeacher[] monday;
-//        monday = new GradeSubjectTeacher[8];
-//        List<Schedule> schedules = scheduleRepository.findAllByGstGrade(grade);
-////        for(int i = 0; i < 8; i++){
-////            if()
-////        }
-//
-//        for(Schedule schedule:schedules){
-//            if(schedule.getDayOfWeek() != null && schedule.getStartHour() != null){
-//                monday[hourToNumber(schedule.getStartHour())] = schedule.getGst();
-//            }
-//        }
-//        model.addAttribute("monday", monday);
-//
-//        return "plan/gradePlan";
-//    }
-
 
     @GetMapping("/grade")
     public String grade(Model model, @RequestParam int id){

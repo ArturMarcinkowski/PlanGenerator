@@ -33,32 +33,60 @@ public class StudentController {
         this.userRepository = userRepository;
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showForm(Model model) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("grades", gradeRepository.findAll());
+        List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
+        model.addAttribute("users", users);
+        return "student/form";
+    }
 
-    //    private void saveStudent(Student student){
-//        studentRepository.save(student);
-//        if(student.getUser() != null){
-//            Optional<User> optionalUser = userRepository.findById(student.getUser().getId());
-//            if(optionalUser.isPresent()){
-//                User user = optionalUser.get();
-//                user.setStudent(student);
-//                user.setTeacher(null);
-//                userRepository.save(user);
-//            }
-//            else {
-//                student.setUser(null);
-//                studentRepository.save(student);
-//            }
-//        }
-//        else {
-//            Optional<User> optionalUser = userRepository.findByStudentId(student.getId());
-//            if(optionalUser.isPresent()){
-//                User user = optionalUser.get();
-//                user.setStudent(null);
-//                userRepository.save(user);
-//            }
-//        }
-//    }
 
+    @PostMapping("/add")
+    public String addStudent(@Valid Student student, BindingResult result){
+        if (result.hasErrors()) {
+            return "student/form";
+        }
+        saveStudent(student);
+        return "redirect:/student/list";
+
+    }
+
+    @GetMapping("/list")
+    public String studentList(Model model) {
+        model.addAttribute("students", studentRepository.findAll());
+        return "student/list";
+    }
+
+
+    @GetMapping("/delete")
+    public String deleteStudent(@RequestParam int id){
+        studentRepository.deleteById(id);
+        return "redirect:/student/list";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String showEditForm(@RequestParam int id, Model model) {
+        model.addAttribute("student", studentRepository.findById(id));
+        model.addAttribute("grades", gradeRepository.findAll());
+        List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
+        Optional<User> currentUser = userRepository.findByStudentId(id);
+        if(currentUser.isPresent()){
+            users.add(currentUser.get());
+        }
+        model.addAttribute("users", users);
+        return "student/form";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEditForm(@Valid Student student, BindingResult result) {
+        if (result.hasErrors()) {
+            return "student/form";
+        }
+        saveStudent(student);
+        return "redirect:/student/list";
+    }
 
     public void saveStudent(Student student){
         studentRepository.save(student);
@@ -84,81 +112,6 @@ public class StudentController {
                 userRepository.save(user);
             }
         }
-    }
-
-
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showForm(Model model) {
-        model.addAttribute("student", new Student());
-        model.addAttribute("grades", gradeRepository.findAll());
-        List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
-//        for(User user:users){
-//            if(user.getStudent() != null || user.getTeacher() != null )
-//                users.remove(user);
-//        }
-//        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "student/form";
-    }
-
-
-    @PostMapping("/add")
-    public String addStudent(@Valid Student student, BindingResult result){
-        if (result.hasErrors()) {
-            return "student/form";
-        }
-        saveStudent(student);
-        return "redirect:/student/list";
-
-    }
-
-//    @RequestMapping(value = "account", method = RequestMethod.GET)
-//    public String showFormUsers(Model model) {
-//        model.addAttribute("student", new Student());
-//        List<User> users = userRepository.findAll();
-//        for(User user:users){
-//            if(user.getStudent() != null)
-//                users.remove(user);
-//        }
-//        model.addAttribute("accounts", users);
-//        return "student/form";
-//    }
-
-    @GetMapping("/list")
-    public String studentList(Model model) {
-        model.addAttribute("students", studentRepository.findAll());
-        return "student/list";
-    }
-
-
-    @GetMapping("/delete")
-    public String deleteStudent(@RequestParam int id){
-        studentRepository.deleteById(id);
-        return "redirect:/student/list";
-
-    }
-
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String showEditForm(@RequestParam int id, Model model) {
-        model.addAttribute("student", studentRepository.findById(id));
-        model.addAttribute("grades", gradeRepository.findAll());
-        List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
-        Optional<User> currentUser = userRepository.findByStudentId(id);
-        if(currentUser.isPresent()){
-            users.add(currentUser.get());
-        }
-        model.addAttribute("users", users);
-        return "student/form";
-    }
-
-
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveEditForm(@Valid Student student, BindingResult result) {
-        if (result.hasErrors()) {
-            return "student/form";
-        }
-        saveStudent(student);
-        return "redirect:/student/list";
     }
 
 

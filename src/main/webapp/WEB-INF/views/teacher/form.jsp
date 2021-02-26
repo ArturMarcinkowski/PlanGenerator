@@ -4,7 +4,7 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../utilities/header.jsp"%>
+<%@include file="../utilities/header.jsp" %>
 
 
 <div class="container-fluid">
@@ -13,6 +13,7 @@
         <h1 class="h3 mb-0 text-gray-800">Add Teacher</h1>
     </div>
 
+    <div class="col-xl-3 col-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Add Teacher</h6>
@@ -36,16 +37,18 @@
                         <form:errors path="surname"/>
                     </div>
                     Select Account:<br>
-                    <form:select  path="user">
-                        <form:option value = "" label = "Select"/>
+                    <form:select path="user">
+                        <form:option value="" label="Select"/>
                         <form:options items="${users}" itemLabel="username" itemValue="id"/>
                     </form:select><br>
-                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add Teacher">
+                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                           value="+ Add Teacher">
                 </form:form>
             </div>
         </div>
     </div>
+    </div>
 
 </div>
 </div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
