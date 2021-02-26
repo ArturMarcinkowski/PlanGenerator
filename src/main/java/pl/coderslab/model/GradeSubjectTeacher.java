@@ -21,4 +21,11 @@ public class GradeSubjectTeacher {
     @JoinColumn(name = "grade_id")
     private Grade grade;
 
+    public String getSubjectTeacher(){
+        return this.subject.getName()+"  ("+ this.teacher.getName()+" "+this.teacher.getSurname()+")";
+    }
+    public String getClassSubject(){
+        return this.subject.getName()+"  ("+ this.grade.getName()+")";
+    }
+
 }

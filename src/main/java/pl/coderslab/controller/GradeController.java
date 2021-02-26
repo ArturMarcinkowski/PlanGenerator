@@ -8,6 +8,7 @@ import pl.coderslab.model.Grade;
 import pl.coderslab.model.Student;
 import pl.coderslab.model.Subject;
 import pl.coderslab.model.Teacher;
+import pl.coderslab.respository.GSTRepository;
 import pl.coderslab.respository.GradeRepository;
 import pl.coderslab.respository.StudentRepository;
 
@@ -23,64 +24,55 @@ import java.util.Set;
 public class GradeController {
     public final GradeRepository gradeRepository;
     public final StudentRepository studentRepository;
+    public final GSTRepository gstRepository;
 
-    public GradeController(GradeRepository gradeRepository, StudentRepository studentRepository) {
+
+    public GradeController(GradeRepository gradeRepository, StudentRepository studentRepository, GSTRepository gstRepository) {
         this.gradeRepository = gradeRepository;
         this.studentRepository = studentRepository;
+        this.gstRepository = gstRepository;
     }
 
-
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showForm(Model model) {
-        model.addAttribute("grade", new Grade());
-        return "grade/form";
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String saveProposition(@Valid Grade grade, BindingResult result) {
-        if (result.hasErrors()) {
-            return "grade/form";
-        }
-        gradeRepository.save(grade);
-        return "redirect:/grade/list";
-    }
-
-    @RequestMapping("/list")
-    public String getAll(Model model) {
-        model.addAttribute("grades", gradeRepository.findAll());
+    @GetMapping("/{id}/list")
+    public String gradeDetails(@PathVariable int id, Model model){
+        Grade grade = gradeRepository.findById(id);
+        model.addAttribute("grade", grade);
+        model.addAttribute("gsts", gstRepository.findAllByGrade(grade));
+        model.addAttribute("students", studentRepository.findAllByGrade(grade));
         return "grade/list";
     }
 
-    @RequestMapping("/delete")
-    public String delete(@RequestParam int id) {
-        gradeRepository.deleteById(id);
-        return "redirect:/grade/list";
+    @GetMapping("/{id}/removeStudent")
+    public String removeStudent(@PathVariable int id, @RequestParam int studentId, Model model){
+        Student student = studentRepository.findById(studentId).get();
+        student.setGrade(null);
+        studentRepository.save(student);
+        return "redirect:/grade/"+id;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String showEditForm(@RequestParam int id, Model model) {
-        model.addAttribute("grade", gradeRepository.findById(id));
-        return "grade/form";
+    @GetMapping("/{id}/add")
+    public String addStudent(@PathVariable int id, Model model){
+        model.addAttribute("gradeId", id);
+//        model.addAttribute("students", studentRepository.findAllByGradeIdIsNot(id));
+//        model.addAttribute("freeStudents", studentRepository.findAllByGradeIsNull());
+        List<Student> students = studentRepository.findAllByGradeIdIsNot(id);
+        students.addAll(studentRepository.findAllByGradeIsNull());
+        model.addAttribute("students", students);
+        return "grade/addstudents";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveEditForm(@Valid Grade grade, BindingResult result) {
-        if (result.hasErrors()) {
-            return "grade/form";
-        }
-        gradeRepository.save(grade);
-        return "redirect:/grade/list";
-    }
-
-    @GetMapping("/details")
-    public String gradeDetails(@RequestParam int id, Model model){
+    @PostMapping("/{id}/add")
+    public String studentAdd(@PathVariable int id, Model model, @RequestParam(name = "studentsId[]") int studentsId[]){
         Grade grade = gradeRepository.findById(id);
+        for(int studentId:studentsId){
+            Student student = studentRepository.findById(studentId).get();
+            student.setGrade(grade);
+            studentRepository.save(student);
+        }
         model.addAttribute("grade", grade);
         model.addAttribute("students", studentRepository.findAllByGrade(grade));
-        return "grade/details";
-
+        return "grade/list";
     }
-
 
 
 

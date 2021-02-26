@@ -12,6 +12,8 @@ public class Schedule {
     private int id;
     private String dayOfWeek;
     private String startHour;
+    private int NumberOfDay;
+    private int NumberOfHour;
     @ManyToOne
     @JoinColumn(name="GST_id")
     private GradeSubjectTeacher gst;

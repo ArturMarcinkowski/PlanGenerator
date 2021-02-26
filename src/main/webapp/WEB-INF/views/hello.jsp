@@ -1,20 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form"
+           uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
-<head>
-    <title>Title</title>
-    <link href="<c:url value="/resources/style.css" />" rel="stylesheet" type="text/css">
-</head>
-<body>
-<h1><spring:message code="app.title"/></h1>
+<%@include file="utilities/header.jsp"%>
 
-<sec:authorize access="isAuthenticated()">
-    <form action="<c:url value="/logout"/>" method="post">
-        <input type="submit" value="Wyloguj">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-</sec:authorize>
-</body>
-</html>
+<div class="container-fluid">
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Welcome on the Website</h1>
+    </div>
+    To continue please login or make account
+</div>
+</div>
+<%@include file="utilities/footer.jsp"%>
+
+
+

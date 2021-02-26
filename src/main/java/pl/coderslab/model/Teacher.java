@@ -15,7 +15,9 @@ public class Teacher {
     private int id;
     private String name;
     private String surname;
-
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
 
 }
