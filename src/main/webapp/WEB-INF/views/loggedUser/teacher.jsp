@@ -4,7 +4,7 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../utilities/header.jsp"%>
+<%@include file="../utilities/header.jsp" %>
 
 <div class="container-fluid">
 
@@ -15,16 +15,17 @@
     <sec:authorize access="hasRole('ADMIN')">
         You are also an admin:
         <div>
-            <a href="/logged/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check admin profile</a>
+            <a href="/logged/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check admin
+                profile</a>
         </div>
     </sec:authorize>
     <sec:authorize access="hasRole('STUDENT')">
         You are also a student:
         <div>
-            <a href="/logged/student" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check student profile</a>
+            <a href="/logged/student" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check student
+                profile</a>
         </div>
     </sec:authorize>
-
 
     <div class="row">
         <div class="col-xl-3 col-lg-3">
@@ -44,92 +45,83 @@
             </div>
         </div>
 
-
-
-
-
-
         <div class="col-xl-5 col-lg-1">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects:</h6>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects:</h6>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Class</th>
-                            <th>Number in Week</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Class</th>
-                            <th>Number in Week</th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        <c:forEach var="gst" items="${gsts}">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                             <tr>
-                                <td>${gst.subject.name}</td>
-                                <td>${gst.grade.name} </td>
-                                <td>${gst.lessonsInWeek}</td>
+                                <th>Subject</th>
+                                <th>Class</th>
+                                <th>Number in Week</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Class</th>
+                                <th>Number in Week</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <c:forEach var="gst" items="${gsts}">
+                                <tr>
+                                    <td>${gst.subject.name}</td>
+                                    <td>${gst.grade.name} </td>
+                                    <td>${gst.lessonsInWeek}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 
-
-
-
-        <div class="row">
+    <div class="row">
         <div class="col-xl-11 col-lg-8">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Your Schedule</h6>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Your Schedule</h6>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tr>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="gsts" items="${allGsts}">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <tr>
-                                <c:forEach var="gst" items="${gsts}">
-                                    <td>${gst.subject.name}<br>
-                                            ${gst.grade.name}</td>
-                                </c:forEach>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="gsts" items="${allGsts}">
+                                <tr>
+                                    <c:forEach var="gst" items="${gsts}">
+                                        <td>${gst.subject.name}<br>
+                                                ${gst.grade.name}</td>
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
 </div>
-</div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
 
 

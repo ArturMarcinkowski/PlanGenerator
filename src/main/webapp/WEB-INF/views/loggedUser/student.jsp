@@ -24,8 +24,6 @@
         </div>
     </sec:authorize>
 
-
-
     <div class="row">
         <div class="col-xl-3 col-lg-3">
             <div class="card shadow mb-4">
@@ -44,8 +42,6 @@
             </div>
         </div>
 
-
-
         <div class="col-xl-3 col-lg-3">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -63,9 +59,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
         <div class="col-xl-5 col-lg-1">
         <div class="card shadow mb-4">
@@ -106,9 +99,6 @@
         </div>
         </div>
     </div>
-
-
-
 
         <div class="row">
         <div class="col-xl-11 col-lg-8">

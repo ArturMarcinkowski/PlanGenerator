@@ -10,17 +10,9 @@ import pl.coderslab.respository.StudentRepository;
 @Controller
 public class HomeController {
 
-
-
     @RequestMapping("/")
     public String hello(){
         return "hello";
     }
-
-    @GetMapping("/admin/hello")
-    @ResponseBody
-    public String about() { return "Here you can find some details for logged users"; }
-
-
 
 }

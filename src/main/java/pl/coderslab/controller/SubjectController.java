@@ -27,7 +27,6 @@ public class SubjectController {
         this.teacherRepository = teacherRepository;
     }
 
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Model model) {
         model.addAttribute("subject", new Subject());

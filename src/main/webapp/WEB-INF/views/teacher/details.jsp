@@ -4,7 +4,7 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../utilities/header.jsp"%>
+<%@include file="../utilities/header.jsp" %>
 
 <div class="container-fluid">
 
@@ -18,7 +18,8 @@
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">${teacher.name} ${teacher.surname}</h6>
-                        <a href="/teacher/edit?id=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Edit Details</a>
+                        <a href="/teacher/edit?id=${teacher.id}"
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Edit Details</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,43 +34,45 @@
         </div>
 
         <div class="col-xl-3 col-lg-1">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects</h6>
-                    <a href="/gst/addtoteacher?teacherId=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Subject</a>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Teaching Subjects</h6>
+                        <a href="/gst/addtoteacher?teacherId=${teacher.id}"
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Subject</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <c:forEach var="subject" items="${subjects}">
+                            <li>${subject.name}</li>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
-            <div class="card-body">
-                <ul>
-                    <c:forEach var="subject" items="${subjects}">
-                        <li>${subject.name}</li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </div>
         </div>
 
         <div class="col-xl-3 col-lg-1">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Teaching Classes</h6>
-                    <a href="/gst/addtoteacher?teacherId=${teacher.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Teaching Classes</h6>
+                        <a href="/gst/addtoteacher?teacherId=${teacher.id}"
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> + Add Class</a>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
+                <div class="card-body">
                     <ul>
                         <c:forEach var="grade" items="${grades}">
                             <li>${grade.name}</li>
                         </c:forEach>
                     </ul>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
 </div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
 
 

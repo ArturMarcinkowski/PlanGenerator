@@ -47,14 +47,12 @@ public class GradeController {
         Student student = studentRepository.findById(studentId).get();
         student.setGrade(null);
         studentRepository.save(student);
-        return "redirect:/grade/"+id;
+        return "redirect:/grade/"+id+"/list";
     }
 
     @GetMapping("/{id}/add")
     public String addStudent(@PathVariable int id, Model model){
         model.addAttribute("gradeId", id);
-//        model.addAttribute("students", studentRepository.findAllByGradeIdIsNot(id));
-//        model.addAttribute("freeStudents", studentRepository.findAllByGradeIsNull());
         List<Student> students = studentRepository.findAllByGradeIdIsNot(id);
         students.addAll(studentRepository.findAllByGradeIsNull());
         model.addAttribute("students", students);

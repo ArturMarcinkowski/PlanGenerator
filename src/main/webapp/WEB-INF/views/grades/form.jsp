@@ -12,7 +12,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Add Class</h1>
     </div>
-
+    <div class="col-xl-3 col-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Add Class</h6>
@@ -35,6 +35,7 @@
                 </form:form>
             </div>
         </div>
+    </div>
     </div>
 
 </div>

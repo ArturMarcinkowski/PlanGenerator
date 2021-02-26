@@ -4,7 +4,7 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../utilities/header.jsp"%>
+<%@include file="../utilities/header.jsp" %>
 
 
 <div class="container-fluid">
@@ -22,12 +22,13 @@
 
                 <form:form method="post" modelAttribute="schedule">
                     Select day:<br>
-                    <form:select path="dayOfWeek" items="${dayOfWeek}" /><br>
+                    <form:select path="dayOfWeek" items="${dayOfWeek}"/><br>
                     Select hour:<br>
-                    <form:select path="startHour" items="${startHour}" /><br>
+                    <form:select path="startHour" items="${startHour}"/><br>
                     Select Subject:<br>
-                    <form:select path="gst" items="${gsts}" itemLabel="SubjectTeacher" itemValue="id" /><br>
-                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="Set Lesson">
+                    <form:select path="gst" items="${gsts}" itemLabel="SubjectTeacher" itemValue="id"/><br>
+                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                           value="Set Lesson">
                 </form:form>
             </div>
         </div>
@@ -35,6 +36,6 @@
 
 </div>
 </div>
-<%@include file="../utilities/footer.jsp"%>
+<%@include file="../utilities/footer.jsp" %>
 
 

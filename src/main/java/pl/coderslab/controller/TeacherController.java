@@ -39,33 +39,6 @@ public class TeacherController {
         return "teacher/form";
     }
 
-    public void saveTeacher(Teacher teacher){
-        teacherRepository.save(teacher);
-        if(teacher.getUser() != null){
-            List<User> users = userRepository.findAllByTeacher(teacher);
-            for(User user:users){
-                user.setTeacher(null);
-                List<Student> students = studentRepository.findAllByUserId(user.getId());
-                for(Student student: students){
-                    student.setUser(null);
-                    studentRepository.save(student);
-                }
-                teacherRepository.save(teacher);
-            }
-            User user = userRepository.findById(teacher.getUser().getId()).get();
-            user.setTeacher(teacher);
-            userRepository.save(user);
-        }
-        else {
-            List<User> users = userRepository.findAllByTeacherId(teacher.getId());
-            for(User user:users){
-                user.setTeacher(null);
-                userRepository.save(user);
-            }
-        }
-    }
-
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveProposition(@Valid Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
@@ -81,7 +54,6 @@ public class TeacherController {
         return "teacher/list";
     }
 
-
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String showEditForm(@RequestParam int id, Model model) {
         Optional<Teacher> optionalTeacher = teacherRepository.findById(id);
@@ -89,10 +61,6 @@ public class TeacherController {
             Teacher teacher = optionalTeacher.get();
             model.addAttribute("teacher", teacher);
             List<User> users = userRepository.findAllByStudentIsNullAndTeacherIsNull();
-//            Optional<User> currentUser = userRepository.findByTeacherId(id);
-//            if(currentUser.isPresent()){
-//                users.add(currentUser.get());
-//            }
             users.addAll(userRepository.findAllByTeacherId(id));
             model.addAttribute("users", users);
             return "teacher/form";
@@ -133,6 +101,32 @@ public class TeacherController {
         model.addAttribute("grades", grades);
         model.addAttribute("subjects", subjects);
         return "teacher/details";
+    }
+
+    public void saveTeacher(Teacher teacher){
+        teacherRepository.save(teacher);
+        if(teacher.getUser() != null){
+            List<User> users = userRepository.findAllByTeacher(teacher);
+            for(User user:users){
+                user.setTeacher(null);
+                List<Student> students = studentRepository.findAllByUserId(user.getId());
+                for(Student student: students){
+                    student.setUser(null);
+                    studentRepository.save(student);
+                }
+                teacherRepository.save(teacher);
+            }
+            User user = userRepository.findById(teacher.getUser().getId()).get();
+            user.setTeacher(teacher);
+            userRepository.save(user);
+        }
+        else {
+            List<User> users = userRepository.findAllByTeacherId(teacher.getId());
+            for(User user:users){
+                user.setTeacher(null);
+                userRepository.save(user);
+            }
+        }
     }
 
 
