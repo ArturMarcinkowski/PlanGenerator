@@ -10,19 +10,19 @@
 <div class="container-fluid">
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add User</h1>
+        <h1 class="h3 mb-0 text-gray-800">Set role</h1>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add User</h6>
+            <h6 class="m-0 font-weight-bold text-primary">${user.username}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
 
                 <form method="post">
                     <div>
-                        <input type="hidden" value="${userId}" name="userId" id="userId"/>
+                        <input type="hidden" value="${user.id}" name="userId" id="userId"/>
                     <div>
 
 <%--                    <select name="rolesId[]" id="rolesId[]">--%>
@@ -35,7 +35,7 @@
                           <input type="checkbox" value="2" name="rolesId[]" id="rolesId[]"/>TEACHER<br>
                            <input type="checkbox" value="3" name="rolesId[]" id="rolesId[]"/>STUDENT<br>
                     </div>
-                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="+ Add User">
+                    <input type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" value="Set">
                 </form>
 
 

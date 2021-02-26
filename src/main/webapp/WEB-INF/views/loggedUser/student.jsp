@@ -1,5 +1,3 @@
-<%@ page import="pl.coderslab.model.Subject" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
@@ -12,6 +10,20 @@
         <h1 class="h3 mb-0 text-gray-800">Welcome ${student.name} ${student.surname}</h1>
         <a href="/teacher/list" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Back to List</a>
     </div>
+
+    <sec:authorize access="hasRole('ADMIN')">
+        You are also an admin:
+        <div>
+            <a href="/logged/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check admin profile</a>
+        </div>
+    </sec:authorize>
+    <sec:authorize access="hasRole('TEACHER')">
+        You are also a teacher:
+        <div>
+            <a href="/logged/teacher" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check teacher profile</a>
+        </div>
+    </sec:authorize>
+
 
 
     <div class="row">
@@ -133,6 +145,7 @@
         </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>

@@ -12,6 +12,19 @@
         <h1 class="h3 mb-0 text-gray-800">Welcome ${teacher.name} ${teacher.surname}</h1>
     </div>
 
+    <sec:authorize access="hasRole('ADMIN')">
+        You are also an admin:
+        <div>
+            <a href="/logged/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check admin profile</a>
+        </div>
+    </sec:authorize>
+    <sec:authorize access="hasRole('STUDENT')">
+        You are also a student:
+        <div>
+            <a href="/logged/student" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Check student profile</a>
+        </div>
+    </sec:authorize>
+
 
     <div class="row">
         <div class="col-xl-3 col-lg-3">
@@ -114,6 +127,7 @@
         </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 <%@include file="../utilities/footer.jsp"%>

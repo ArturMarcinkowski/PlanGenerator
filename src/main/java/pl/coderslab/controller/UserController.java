@@ -107,7 +107,7 @@ public class UserController {
 
     @RequestMapping(value = "/addrole", method = RequestMethod.GET)
     public String showFormRole(Model model, @RequestParam int id) {
-        model.addAttribute("userId", id);
+        model.addAttribute("user", userRepository.findById(id).get());
         List<Role> roles = roleRepository.findAll();
         model.addAttribute("roles", roles);
         return "user/addRole";
